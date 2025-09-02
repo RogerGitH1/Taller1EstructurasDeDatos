@@ -1,4 +1,3 @@
-Talleres Estructuras De Datos
+Talleres Estructuras De Datos (C2 Bastian Ruiz)
 - Miguel Valenzuela
 - Roger Villarroel
-- C2 Bastian Ruiz
