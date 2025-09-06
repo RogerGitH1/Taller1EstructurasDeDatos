@@ -33,3 +33,14 @@ LinkedList::~LinkedList(){
         cabeza = actual;
     }
 }
+
+bool LinkedList::idExiste(int idBuscado) {
+    Nodo* actual = cabeza;
+    while (actual) {
+        if (actual ->getAlumno()->getId() == idBuscado){
+        return true;
+        }
+        actual = actual->getSiguiente();
+    }
+    return  false;
+}

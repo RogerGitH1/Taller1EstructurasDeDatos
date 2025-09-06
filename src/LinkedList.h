@@ -7,6 +7,7 @@ class LinkedList {
 public:
     LinkedList();
     void agregarNodo(Alumno alumno);
+    bool idExiste(int idBuscado);
     //void eliminarNodo(Alumno alumno);
     ~LinkedList();
 };

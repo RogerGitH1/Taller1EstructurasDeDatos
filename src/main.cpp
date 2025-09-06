@@ -2,7 +2,12 @@
 #include <string>
 #include <limits>
 
+#include "Alumno.h"
+#include "LinkedList.h"
+
+
 using namespace std;
+LinkedList linkedList;
 
 string leerString(string texto){
     cout << texto;
@@ -30,6 +35,13 @@ void crearAlumno(){
     string apellido = leerString("Ingrese Apellido: ");
     string carrera = leerString("Ingrese Carrera: ");
     string fechaIngreso = leerString("Ingrese Fecha de ingreso (dia/mes/año): ");
+    if (!linkedList.idExiste(id)) {
+        Alumno alumno(id,nombre,apellido,carrera,fechaIngreso);
+        linkedList.agregarNodo(alumno);
+        cout << "Alumno agregado correctamente " << endl;
+        return;
+    }
+    cout << "El id: " << id << " ya existe " << endl;
 }
 
 void buscarAlumno() {
