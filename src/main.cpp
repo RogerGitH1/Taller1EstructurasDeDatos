@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <string>
 
 #include "Alumno.h"
 #include "LinkedList.h"
@@ -35,6 +36,7 @@ void crearAlumno(){
     string apellido = leerString("Ingrese Apellido: ");
     string carrera = leerString("Ingrese Carrera: ");
     string fechaIngreso = leerString("Ingrese Fecha de ingreso (dia/mes/año): ");
+
     if (!linkedList.idExiste(id)) {
         Alumno alumno(id,nombre,apellido,carrera,fechaIngreso);
         linkedList.agregarNodo(alumno);
@@ -47,12 +49,23 @@ void crearAlumno(){
 void buscarAlumno() {
     cout << "BUSCAR ALUMNO" << endl;
     int id = leerInt("Ingrese Id: ");
+    Alumno alumno = linkedList.getAlumno(id);
+    if (alumno.getId() != -1) {
+        linkedList.mostrarInformacion(alumno.getId(), alumno.getNombre());
+        return;
+    }
+    cout << "Id: " << id << " no encontrado " << endl;
 }
 
 void eliminarAlumno() {
     cout << "ELIMINAR ALUMNO" << endl;
     int id = leerInt("Ingrese Id: ");
-
+    if (linkedList.idExiste(id)) {
+        linkedList.eliminarNodo(id);
+        cout << "El alumno con Id: " << id << " eliminado " << endl;
+        return;
+    }
+    cout << "El id: " << id << " no existe " << endl;
 }
 void manejoAlumnos(){
     int opcion;

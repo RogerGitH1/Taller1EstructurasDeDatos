@@ -4,7 +4,7 @@
 
 LinkedList::LinkedList():cabeza(nullptr) {}
 
-void LinkedList::agregarNodo(Alumno alumno) {
+void LinkedList::agregarNodo(const Alumno& alumno) {
     Nodo* nuevo = new Nodo();
     nuevo->setAlumno(alumno);
     nuevo->setSiguiente(nullptr);
@@ -22,11 +22,6 @@ void LinkedList::agregarNodo(Alumno alumno) {
 }
 
 LinkedList::~LinkedList(){
-    if (!cabeza) {
-        std::cout << "No hay ningun elemento en la lista" << std::endl;
-        return;
-    }
-
     while (cabeza) {
         Nodo* actual = cabeza->getSiguiente();
         delete cabeza;
@@ -36,11 +31,61 @@ LinkedList::~LinkedList(){
 
 bool LinkedList::idExiste(int idBuscado) {
     Nodo* actual = cabeza;
+
     while (actual) {
         if (actual ->getAlumno()->getId() == idBuscado){
         return true;
         }
         actual = actual->getSiguiente();
+    }
+    return  false;
+}
+
+Alumno LinkedList::getAlumno(int idBuscado) {
+    Nodo* actual = cabeza;
+    while (actual) {
+        if (actual->getAlumno()->getId() == idBuscado) {
+            return *(actual->getAlumno());
+        }
+        actual = actual->getSiguiente();
+    }
+    return Alumno();
+}
+
+void LinkedList::mostrarInformacion(int idBuscado, std::string nombreBuscado) {
+    Nodo* actual = cabeza;
+    while (actual) {
+        if (actual->getAlumno()->getId() == idBuscado || actual -> getAlumno()->getNombre() == nombreBuscado) {
+            actual -> getAlumno()->mostrarInformacion();
+        }
+        actual = actual->getSiguiente();
+    }
+
+}
+
+void LinkedList::eliminarNodo(int idBuscado) {
+    Nodo* ant = nullptr;
+    Nodo* actual = cabeza;
+    while (actual) {
+        if (actual -> getAlumno()->getId() == idBuscado) {
+            if (!ant) {
+                cabeza = actual ->getSiguiente();
+            }
+            else {
+                ant->setSiguiente(actual->getSiguiente());
+            }
+
+            delete actual;
+            return;
+        }
+        ant = actual;
+        actual = actual->getSiguiente();
+    }
+}
+
+bool LinkedList::isEmpty() {
+    if (cabeza == nullptr) {
+        return true;
     }
     return  false;
 }
