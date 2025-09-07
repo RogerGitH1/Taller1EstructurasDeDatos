@@ -1,18 +1,22 @@
-#ifndef TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
-#define TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
-#include "Nodo.h"
+#ifndef TALLERES_ESTRUCTURAS_DE_DATOS21_LINKEDLIST_H
+#define TALLERES_ESTRUCTURAS_DE_DATOS21_LINKEDLIST_H
 
+#include "Nodo.h"
+#include <string>
+
+template <typename T>
 class LinkedList {
-    Nodo *cabeza;
+    Nodo<T> *cabeza;
+
 public:
     LinkedList();
-    void agregarNodo(const Alumno& alumno);
-    bool idExiste(int idBuscado);
-    Alumno getAlumno(int idBuscado);
-    void mostrarInformacion(int idBuscado, std::string nombreBuscado);
+    void agregarNodo(const T& objeto);
+    bool idExiste(int idBuscado) const;
+    T getObjeto(int idBuscado) const;
+    void mostrarInformacion(int idBuscado, const std::string& nombreBuscado) const;
     void eliminarNodo(int id);
-    bool isEmpty();
+    bool isEmpty() const;
     ~LinkedList();
 };
 
-#endif //TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
+#endif //TALLERES_ESTRUCTURAS_DE_DATOS21_LINKEDLIST_H
