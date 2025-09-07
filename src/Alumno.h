@@ -1,7 +1,10 @@
 
 #ifndef TALLER1ESTRUCTURASDEDATOS_ALUMNO_H
 #define TALLER1ESTRUCTURASDEDATOS_ALUMNO_H
+
 #include <string>
+#include "LinkedList.h"
+#include "Curso.h"
 
 class Alumno {
 private:
@@ -10,15 +13,17 @@ private:
     std::string apellido;
     std::string carrera;
     std::string fechaIngreso;
-    //listaCursos (implementada en futuro)
+    LinkedList<Curso> cursos;
 public:
+    Alumno();
     Alumno(int id, std::string nombre, std::string apellido, std::string carrera,std::string fechaIngreso);
-    void mostrarInformacion();
-    int getId();
-    std::string getNombre();
-    std::string getApellido();
-    std::string getCarrera();
-    std::string getFechaIngreso();
+    int getId() const;
+    const std::string& getNombre() const;
+    const std::string& getApellido() const;
+    const std::string& getCarrera() const;
+    const std::string& getFechaIngreso() const;
+    void mostrarInformacion() const;
+    void añadirCurso(const Curso& curso);
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_ALUMNO_H

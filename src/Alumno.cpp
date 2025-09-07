@@ -1,7 +1,8 @@
 
 #include "Alumno.h"
-
 #include <iostream>
+
+Alumno::Alumno(): id(-1){}
 
 Alumno::Alumno(int id, std::string nombre, std::string apellido, std::string carrera, std::string fechaIngreso) {
     this -> id = id;
@@ -11,26 +12,30 @@ Alumno::Alumno(int id, std::string nombre, std::string apellido, std::string car
     this -> fechaIngreso = fechaIngreso;
 }
 
-void Alumno::mostrarInformacion() {
-    std::cout << id << std::endl;
+void Alumno::mostrarInformacion() const{
+    std::cout << "Id: " << id << std::endl;
     std::cout << "Nombre: " << nombre << std::endl;
     std::cout << "Apellido: " << apellido << std::endl;
     std::cout << " Carrera: " << carrera << std::endl;
     std::cout << " Fecha: " << fechaIngreso  << std::endl;
+    std::cout << std::endl;
 }
 
-int Alumno::getId() {
+void Alumno::añadirCurso(const Curso& curso) {
+    cursos.agregarNodo(curso);
+}
+int Alumno::getId() const{
     return  id;
 }
-std::string Alumno::getNombre() {
+const std::string& Alumno::getNombre() const  {
     return nombre;
 }
-std::string Alumno::getApellido() {
+const std::string& Alumno::getApellido() const {
     return apellido;
 }
-std::string Alumno::getCarrera() {
+const std::string& Alumno::getCarrera()const  {
     return carrera;
 }
-std::string Alumno::getFechaIngreso() {
+const std::string& Alumno::getFechaIngreso()const  {
     return fechaIngreso;
 }
