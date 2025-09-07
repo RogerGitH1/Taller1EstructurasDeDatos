@@ -15,7 +15,7 @@ private:
 
 public:
     Curso();
-    Curso(int codigo, const string& nombre, int maxEstudiantes, const string carrera, const string& profesor);
+    Curso(int codigo, const string& nombre, int maxEstudiantes, const string& carrera, const string& profesor);
 
     int codigo() const;
     const string& nombre() const;
@@ -29,7 +29,8 @@ public:
     void setProfesor(const string& profesor);
 
     static bool esCodigoValido(int codigo){ return codigo >0; }
-    static bool esProfesorValido(const string& profesor){ return maxE >0;}
+    static bool esMaxValido(int maxE) { return maxE > 0; }
+    static bool esProfesorValido(const string& profesor) { return !profesor.empty(); }
 
     void imprimir() const;
 };

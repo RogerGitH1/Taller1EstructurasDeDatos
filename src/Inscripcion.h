@@ -6,8 +6,6 @@
 
 class Curso;
 
-#include "../lists/ListaNotas.h"
-
 class Inscripcion {
 private:
     int idAlumno_ = 0;
