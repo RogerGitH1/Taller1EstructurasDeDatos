@@ -10,11 +10,12 @@ private:
     Nodo<T>* siguiente;
 public:
     Nodo();
-    void setObjeto(const T& objeto);
-    void setSiguiente(Nodo<T>* siguiente);
     T* getObjeto();
     const T* getObjeto() const;
     Nodo<T>* getSiguiente();
+    const Nodo<T>* getSiguiente() const;
+    void setObjeto(const T& objeto);
+    void setSiguiente(Nodo<T>* siguiente);
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_NODO_H

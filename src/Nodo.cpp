@@ -23,6 +23,10 @@ template<typename T> Nodo<T>* Nodo<T>::getSiguiente() {
     return siguiente;
 }
 
+template<typename T> const Nodo<T>* Nodo<T>::getSiguiente() const {
+    return siguiente;
+}
+
 #include "Alumno.h"
 #include "Curso.h"
 template class Nodo<Alumno>;
