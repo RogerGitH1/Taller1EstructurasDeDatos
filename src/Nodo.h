@@ -1,18 +1,20 @@
 
 #ifndef TALLER1ESTRUCTURASDEDATOS_NODO_H
 #define TALLER1ESTRUCTURASDEDATOS_NODO_H
-#include "Alumno.h"
 
-class Nodo {
+template <typename T>
+
+class Nodo{
 private:
-    Alumno alumno;
-    Nodo* siguiente;
+    T objeto;
+    Nodo<T>* siguiente;
 public:
     Nodo();
-    void setAlumno(Alumno alumno);
-    void setSiguiente(Nodo* siguiente);
-    Alumno* getAlumno();
-    Nodo* getSiguiente();
+    void setObjeto(const T& objeto);
+    void setSiguiente(Nodo<T>* siguiente);
+    T* getObjeto();
+    const T* getObjeto() const;
+    Nodo<T>* getSiguiente();
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_NODO_H

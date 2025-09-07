@@ -1,21 +1,29 @@
 #include "Nodo.h"
 
-Nodo::Nodo(): siguiente(nullptr){
+template<typename T> Nodo<T>::Nodo(): siguiente(nullptr){
 }
 
-void Nodo::setAlumno(Alumno alumno) {
-    this->alumno = alumno;
+template<typename T> void Nodo<T>::setObjeto(const T& objeto) {
+    this->objeto = objeto;
 }
 
-void Nodo::setSiguiente(Nodo* siguiente) {
+template<typename T> void Nodo<T>::setSiguiente(Nodo<T>* siguiente) {
     this->siguiente = siguiente;
 }
 
-Alumno* Nodo::getAlumno() {
-    return &alumno;
+template<typename T> T* Nodo<T>::getObjeto() {
+    return &objeto;
 }
 
-Nodo* Nodo::getSiguiente() {
+template<typename T> const T* Nodo<T>::getObjeto() const {
+    return &objeto;
+}
+
+template<typename T> Nodo<T>* Nodo<T>::getSiguiente() {
     return siguiente;
 }
 
+#include "Alumno.h"
+#include "Curso.h"
+template class Nodo<Alumno>;
+template class Nodo<Curso>;
