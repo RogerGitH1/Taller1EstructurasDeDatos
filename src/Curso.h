@@ -5,32 +5,37 @@
 #include <string>
 using namespace std;
 
+
 class Curso {
 private:
-    int id_;
-    string nombre_;
-    int maxEstudiantes_;
-    string carrera_;
-    string profesor_;
+    int         id_;
+    std::string nombre_;
+    int         maxEstudiantes_;
+    std::string carrera_;
+    std::string profesor_;
 
 public:
     Curso();
-    Curso(int id, const string& nombre, int maxEstudiantes, const string& carrera, const string& profesor);
+    Curso(int id,
+          const std::string& nombre,
+          int maxEstudiantes,
+          const std::string& carrera,
+          const std::string& profesor);
 
-    int getId() const;
-    const string& getNombre() const;
-    int getMaxEstudiantes() const;
-    const string& getCarrera() const;
-    const string& getProfesor() const;
+    int                         getId() const;
+    const std::string&          getNombre() const;
+    int                         getMaxEstudiantes() const;
+    const std::string&          getCarrera() const;
+    const std::string&          getProfesor() const;
 
-    void setNombre(const string& nombre);
+    void setNombre(const std::string& nombre);
     void setMaxEstudiantes(int maxEstudiantes);
-    void setCarrera(const string& carrera);
-    void setProfesor(const string& profesor);
+    void setCarrera(const std::string& carrera);
+    void setProfesor(const std::string& profesor);
 
-    static bool esCodigoValido(int codigo){ return codigo >0; }
-    static bool esMaxValido(int maxE) { return maxE > 0; }
-    static bool esProfesorValido(const string& profesor) { return !profesor.empty(); }
+    static bool esIdValido(int id){ return id > 0; }
+    static bool esMaxValido(int maxE){ return maxE > 0; }
+    static bool esTextoValido(const std::string& s) { return !s.empty(); }
 
     void mostrarInformacion() const;
 };
