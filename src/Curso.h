@@ -7,7 +7,7 @@ using namespace std;
 
 class Curso {
 private:
-    int codigo_;
+    int id_;
     string nombre_;
     int maxEstudiantes_;
     string carrera_;
@@ -15,13 +15,13 @@ private:
 
 public:
     Curso();
-    Curso(int codigo, const string& nombre, int maxEstudiantes, const string& carrera, const string& profesor);
+    Curso(int id, const string& nombre, int maxEstudiantes, const string& carrera, const string& profesor);
 
-    int codigo() const;
-    const string& nombre() const;
-    int maxEstudiantes() const;
-    const string& carrera() const;
-    const string& profesor() const;
+    int getId() const;
+    const string& getNombre() const;
+    int getMaxEstudiantes() const;
+    const string& getCarrera() const;
+    const string& getProfesor() const;
 
     void setNombre(const string& nombre);
     void setMaxEstudiantes(int maxEstudiantes);
@@ -32,6 +32,6 @@ public:
     static bool esMaxValido(int maxE) { return maxE > 0; }
     static bool esProfesorValido(const string& profesor) { return !profesor.empty(); }
 
-    void imprimir() const;
+    void mostrarInformacion() const;
 };
 #endif //TALLERES_ESTRUCTURAS_DE_DATOS21_CURSO_H
