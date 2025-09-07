@@ -47,14 +47,14 @@ void crearAlumno(){
 }
 
 void buscarAlumno() {
-    cout << "BUSCAR ALUMNO" << endl;
+    std::cout << "BUSCAR ALUMNO" << std::endl;
     int id = leerInt("Ingrese Id: ");
-    Alumno alumno = alumnos.getObjeto(id);
-    if (alumno.getId() != -1) {
-        alumnos.mostrarInformacion(alumno.getId(), alumno.getNombre());
-        return;
+    Alumno* alumno = alumnos.getObjetoPtr(id);
+    if (alumno) {
+        alumnos.mostrarInformacion(alumno->getId(), alumno->getNombre());
+    } else {
+        std::cout << "Id: " << id << " no encontrado " << std::endl;
     }
-    cout << "Id: " << id << " no encontrado " << endl;
 }
 
 void eliminarAlumno() {
@@ -113,14 +113,14 @@ void crearCurso(){
 }
 
 void buscarCurso() {
-    cout << "BUSCAR CURSO" << endl;
+    std::cout << "BUSCAR CURSO" << std::endl;
     int id = leerInt("Ingrese Id del curso: ");
-    Curso curso = cursos.getObjeto(id);
-    if (curso.getId() != -1) {
-        cursos.mostrarInformacion(curso.getId(), curso.getNombre());
-        return;
+    Curso* curso = cursos.getObjetoPtr(id);
+    if (curso) {
+        cursos.mostrarInformacion(curso->getId(), curso->getNombre());
+    } else {
+        std::cout << "Id: " << id << " no encontrado" << std::endl;
     }
-    cout << "Id: " << id << " no encontrado" << endl;
 }
 
 void eliminarCurso() {
@@ -159,6 +159,69 @@ void manejoCursos(){
     } while (opcion != 0);
 }
 
+void inscribirAlumnoCurso() {
+    cout << "INSCRIBIR UN ALUMNO EN UN CURSO " << endl;
+
+    if (alumnos.isEmpty() || cursos.isEmpty()) {
+        cout << "Debe haber mínimo un curso y un alumno añadido" << endl;
+        return;
+    }
+    const int idAlumno = leerInt("Ingrese Id del alumno que quiere inscribir curso: ");
+    Alumno* alumno = alumnos.getObjetoPtr(idAlumno);
+    if (!alumno) {
+        cout << "El id: " << idAlumno << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno->mostrarInformacion();
+
+    const int idCurso = leerInt("Ingrese id del curso al que desea añadir al alumno: ");
+    Curso* curso = cursos.getObjetoPtr(idCurso);
+    if (!curso) {
+        cout << "Curso con id " << idCurso << " no encontrado" << endl;
+        return;
+    }
+
+    if (curso->getCarrera() != alumno->getCarrera()) {
+        cout << "Curso no válido para el alumno (carrera distinta)" << endl;
+        return;
+    }
+
+    //Comprobar que el curso tiene espacio
+
+    alumno->añadirCurso(*curso);
+    cout << "Alumno inscrito en el curso correctamente" << endl;
+}
+
+void eliminarAlumnoCurso() {
+    cout << "ELIMINAR ALUMNO EN UN CURSO " << endl;
+
+}
+
+void manejoInscripciones() {
+    int opcion;
+    cout << "MANEJO DE INSCRIPCIONES" << endl;
+    do {
+        cout << "0. Volver al menu Principal" << endl;
+        cout << "1. Inscribir un alumno en un curso" << endl;
+        cout << "2. Eliminar un alumno de un curso" << endl;
+        opcion = leerInt("Ingrese una opción: ");
+
+        switch (opcion) {
+            case 1:
+                inscribirAlumnoCurso();
+                break;
+            case 2:
+                eliminarAlumnoCurso();
+                break;
+        }
+
+    }
+    while (opcion != 0);
+
+}
+
 int main(){
     int opcion;
     do{
@@ -181,7 +244,7 @@ int main(){
             manejoCursos();
             break;
         case 3:
-
+            manejoInscripciones();
             break;
         case 4:
 
