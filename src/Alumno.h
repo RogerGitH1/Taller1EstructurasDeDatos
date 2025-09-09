@@ -26,7 +26,7 @@ public:
     const std::string& getCarrera() const;
     const std::string& getFechaIngreso() const;
     void mostrarInformacion() const;
-    void añadirCurso(const Curso& curso);
+    void anadirCurso(const Curso& curso);
     bool estaInscritoEn(int idCurso) const;
     void agregarNota(int cursoId, float nota);
     float promedioEnCurso(int cursoId) const;

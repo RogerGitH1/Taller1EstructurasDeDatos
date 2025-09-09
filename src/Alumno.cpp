@@ -22,7 +22,7 @@ void Alumno::mostrarInformacion() const{
     std::cout << std::endl;
 }
 
-void Alumno::añadirCurso(const Curso& curso) {
+void Alumno::anadirCurso(const Curso& curso) {
     cursos.agregarNodo(curso);
 }
 int Alumno::getId() const{

@@ -31,7 +31,7 @@ int leerInt(string texto) {
 
 float leerFloat(string texto1) {
     cout << texto1;
-    int ingresado1;
+    float ingresado1;
     while (!(cin >> ingresado1)) {
         cout << "Valor ingresado invalido" << endl;
         cout << texto1;
@@ -86,7 +86,7 @@ void manejoAlumnos(){
     do{
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Crear Alumno" << endl;
-        cout << "2. Buscar un alumno por ID o nombre y listar su información" << endl;
+        cout << "2. Buscar un alumno por ID o nombre y listar su informacion" << endl;
         cout << "3. Eliminar un alumno del sistema utilizando su ID" << endl;
         cout << "Ingresa una opcion: ";
         cin >> opcion;
@@ -152,9 +152,9 @@ void manejoCursos(){
     do{
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Crear Curso" << endl;
-        cout << "2. Buscar un curso por ID o nombre y listar su información" << endl;
+        cout << "2. Buscar un curso por ID o nombre y listar su informacion" << endl;
         cout << "3. Eliminar un curso del sistema utilizando su ID" << endl;
-        opcion = leerInt("Ingrese una opción: ");
+        opcion = leerInt("Ingrese una opcion: ");
         cout << endl;
 
         switch (opcion){
@@ -175,7 +175,7 @@ void inscribirAlumnoCurso() {
     cout << "INSCRIBIR UN ALUMNO EN UN CURSO " << endl;
 
     if (alumnos.isEmpty() || cursos.isEmpty()) {
-        cout << "Debe haber mínimo un curso y un alumno añadido" << endl;
+        cout << "Debe haber minimo un curso y un alumno agregados" << endl;
         return;
     }
     const int idAlumno = leerInt("Ingrese Id del alumno que quiere inscribir curso: ");
@@ -188,7 +188,7 @@ void inscribirAlumnoCurso() {
     cout << "Alumno encontrado" << endl;
     alumno->mostrarInformacion();
 
-    const int idCurso = leerInt("Ingrese id del curso al que desea añadir al alumno: ");
+    const int idCurso = leerInt("Ingrese id del curso al que desea agregar al alumno: ");
     Curso* curso = cursos.getObjetoPtr(idCurso);
     if (!curso) {
         cout << "Curso con id " << idCurso << " no encontrado" << endl;
@@ -200,9 +200,7 @@ void inscribirAlumnoCurso() {
         return;
     }
 
-    //Comprobar que el curso tiene espacio
-
-    alumno->añadirCurso(*curso);
+    alumno->anadirCurso(*curso);
     cout << "Alumno inscrito en el curso correctamente" << endl;
 }
 
@@ -238,7 +236,7 @@ void asignarNotas() {
     cout << "ASIGNAR NOTA A UN ALUMNO EN UN CURSO " << endl;
 
     if (alumnos.isEmpty() || cursos.isEmpty()) {
-        cout << "Debe haber minimo un curso y un alumno añadido" << endl;
+        cout << "Debe haber minimo un curso y un alumno agregados" << endl;
         return;
     }
     const int idAlumno = leerInt("Ingrese Id del alumno para asignar nota: ");
@@ -251,7 +249,7 @@ void asignarNotas() {
     cout << "Alumno encontrado" << endl;
     alumno->mostrarInformacion();
 
-    const int idCurso = leerInt("Ingrese id del curso al que desea añadir la nota: ");
+    const int idCurso = leerInt("Ingrese id del curso al que desea agregar la nota: ");
     Curso* curso = cursos.getObjetoPtr(idCurso);
     if (!curso) {
         cout << "Curso con id " << idCurso << " no encontrado" << endl;
