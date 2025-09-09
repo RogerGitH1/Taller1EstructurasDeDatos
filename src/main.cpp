@@ -216,7 +216,7 @@ void manejoInscripciones() {
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Inscribir un alumno en un curso" << endl;
         cout << "2. Eliminar un alumno de un curso" << endl;
-        opcion = leerInt("Ingrese una opción: ");
+        opcion = leerInt("Ingrese una opcion: ");
 
         switch (opcion) {
             case 1:
