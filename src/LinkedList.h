@@ -23,6 +23,22 @@ public:
 
     void mostrarInformacion(int idBuscado, const std::string& nombreBuscado) const;
     void eliminarNodo(int idBuscado);
+
+    //Nuevas funciones que agregare(miguel) para poder usar en lista de Notas
+    template<typename Funcion>
+    void forEach(Funcion funcion);
+    template<typename Funcion>
+    void forEach(Funcion funcion) const;
+
+    template<typename FunBool>
+    T* findIf(FunBool funbool);
+    template<typename FunBool>
+    const T* findIf(FunBool funbool) const;
+
+    template<typename FunBool>
+    bool eraseIf(FunBool funbool);
+
+    void clear();
 };
 
 template<typename T>
@@ -134,4 +150,78 @@ void LinkedList<T>::eliminarNodo(int idBuscado) {
     }
 }
 
-#endif // TALLER1ESTRUCTURASDEDATOS_INSCRIPCION_H
+template<typename T>
+template<typename Funcion>
+void LinkedList<T>::forEach(Funcion funcion) {
+    Nodo<T>* actual = cabeza;
+    while (actual) {
+        T* obj = actual->getObjeto();
+        if (obj) funcion(*obj);
+        actual = actual->getSiguiente();
+    }
+}
+
+template<typename T>
+template<typename Funcion>
+void LinkedList<T>::forEach(Funcion funcion) const{
+    Nodo<T>* actual = cabeza;
+    while (actual) {
+        const T* obj = actual->getObjeto();
+        if (obj) funcion(*obj);
+        actual = actual->getSiguiente();
+    }
+}
+
+template<typename T>
+template<typename FunBool>
+T* LinkedList<T>::findIf(FunBool funbool) {
+    Nodo<T>* actual = cabeza;
+    while (actual) {
+        T* obj = actual->getObjeto();
+        if (obj && funbool(*obj)) return obj;
+        actual = actual->getSiguiente();
+    }
+    return nullptr;
+}
+
+template<typename T>
+template<typename FunBool>
+const T* LinkedList<T>::findIf(FunBool funbool) const{
+    const Nodo<T>* actual = cabeza;
+    while (actual) {
+        const T* obj = actual->getObjeto();
+        if (obj && funbool(*obj)) return obj;
+        actual = actual->getSiguiente();
+    }
+    return nullptr;
+}
+
+template<typename T>
+template<typename FunBool>
+bool LinkedList<T>::eraseIf(FunBool funbool) {
+    Nodo<T>* ant = nullptr;
+    Nodo<T>* actual = cabeza;
+    while (actual) {
+        T* obj = actual->getObjeto();
+        if (obj && funbool(*obj)) {
+            if (!ant) cabeza = actual->getSiguiente();
+            else ant->setSiguiente(actual->getSiguiente());
+            delete actual;
+            return true;
+        }
+        ant = actual;
+        actual = actual->getSiguiente();
+    }
+    return false;
+}
+
+template<typename T>
+void LinkedList<T>::clear() {
+    while (cabeza) {
+        Nodo<T>* siguiente = cabeza->getSiguiente();
+        delete cabeza;
+        cabeza = siguiente;
+    }
+}
+
+#endif // TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H

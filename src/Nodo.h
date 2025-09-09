@@ -9,13 +9,12 @@ private:
     T objeto;
     Nodo<T>* siguiente;
 public:
-    Nodo();
-    T* getObjeto();
-    const T* getObjeto() const;
-    Nodo<T>* getSiguiente();
-    const Nodo<T>* getSiguiente() const;
-    void setObjeto(const T& objeto);
-    void setSiguiente(Nodo<T>* siguiente);
+    Nodo() : siguiente(nullptr) {}
+    T* getObjeto() { return &objeto; }
+    const T* getObjeto() const {return &objeto; }
+    Nodo<T>* getSiguiente() { return siguiente; }
+    const Nodo<T>* getSiguiente() const { return siguiente; }
+    void setObjeto(const T& obj) { objeto = obj; }
+    void setSiguiente(Nodo<T>* siguiente) { siguiente = siguiente;}
 };
-
 #endif //TALLER1ESTRUCTURASDEDATOS_NODO_H

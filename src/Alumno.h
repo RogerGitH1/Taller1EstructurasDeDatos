@@ -5,6 +5,7 @@
 #include <string>
 #include "LinkedList.h"
 #include "Curso.h"
+#include "Nota.h"
 
 class Alumno {
 private:
@@ -14,6 +15,8 @@ private:
     std::string carrera;
     std::string fechaIngreso;
     LinkedList<Curso> cursos;
+    LinkedList<Nota> notas;
+
 public:
     Alumno();
     Alumno(int id, std::string nombre, std::string apellido, std::string carrera,std::string fechaIngreso);
@@ -24,6 +27,10 @@ public:
     const std::string& getFechaIngreso() const;
     void mostrarInformacion() const;
     void añadirCurso(const Curso& curso);
+    bool estaInscritoEn(int idCurso) const;
+    void agregarNota(int cursoId, float nota);
+    float promedioEnCurso(int cursoId) const;
+    void imprimirNotasCurso(int cursoId) const;
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_ALUMNO_H

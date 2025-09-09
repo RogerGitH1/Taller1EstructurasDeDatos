@@ -3,6 +3,7 @@
 
 #include "Nota.h"
 #include <cstddef>
+#include "LinkedList.h"
 
 class Curso;
 
@@ -13,7 +14,7 @@ private:
     Curso* cursoRef_= nullptr;
 
 public:
-    ListaNotas notas;
+    LinkedList<Nota> notas_;
 
     Inscripcion();
     Inscripcion(int idAlumno, int codigoCurso, Curso* curso= nullptr);

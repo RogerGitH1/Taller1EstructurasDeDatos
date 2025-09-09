@@ -10,6 +10,7 @@ Alumno::Alumno(int id, std::string nombre, std::string apellido, std::string car
     this -> apellido = apellido;
     this -> carrera = carrera;
     this -> fechaIngreso = fechaIngreso;
+
 }
 
 void Alumno::mostrarInformacion() const{
@@ -38,4 +39,25 @@ const std::string& Alumno::getCarrera()const  {
 }
 const std::string& Alumno::getFechaIngreso()const  {
     return fechaIngreso;
+}
+bool Alumno::estaInscritoEn(int idCurso) const {
+    return cursos.idExiste(idCurso);
+}
+void Alumno::agregarNota(int cursoId, float nota) {
+    notas.agregarNodo( Nota(cursoId, nota));
+}
+
+float Alumno::promedioEnCurso(int cursoId) const {
+    float suma =0.0f; int contador = 0;
+    notas.forEach([&](const Nota& n){
+        if (n.cursoId == cursoId) { suma += n.valor; ++contador; } });
+    return contador? suma/contador: 0.0f;
+}
+
+void Alumno::imprimirNotasCurso(int cursoId) const {
+    bool alguna =false;
+    notas.forEach([&](const Nota& n){
+        if (n.getCursoId() == cursoId) {n.imprimir(); alguna=true;} });
+    if (!alguna) std::cout << "(sin notas)";
+    std::cout << std::endl;
 }

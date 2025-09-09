@@ -29,6 +29,18 @@ int leerInt(string texto) {
     return ingresado;
 }
 
+float leerFloat(string texto1) {
+    cout << texto1;
+    int ingresado1;
+    while (!(cin >> ingresado1)) {
+        cout << "Valor ingresado invalido" << endl;
+        cout << texto1;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    }
+    return ingresado1;
+}
+
 void crearAlumno(){
     cout << "CREAR ALUMNO" << endl;
     int id = leerInt("Ingrese Id: ");
@@ -222,6 +234,61 @@ void manejoInscripciones() {
 
 }
 
+void asignarNotas() {
+    cout << "ASIGNAR NOTA A UN ALUMNO EN UN CURSO " << endl;
+
+    if (alumnos.isEmpty() || cursos.isEmpty()) {
+        cout << "Debe haber minimo un curso y un alumno añadido" << endl;
+        return;
+    }
+    const int idAlumno = leerInt("Ingrese Id del alumno para asignar nota: ");
+    Alumno* alumno = alumnos.getObjetoPtr(idAlumno);
+    if (!alumno) {
+        cout << "El id: " << idAlumno << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno->mostrarInformacion();
+
+    const int idCurso = leerInt("Ingrese id del curso al que desea añadir la nota: ");
+    Curso* curso = cursos.getObjetoPtr(idCurso);
+    if (!curso) {
+        cout << "Curso con id " << idCurso << " no encontrado" << endl;
+        return;
+    }
+    if (!alumno->estaInscritoEn(idCurso)) {
+        cout << "El Alumno No esta inscrito en el curso" << endl;
+        return;
+    }
+
+    const float nota = leerFloat("Ingrese la nota a asignar(1.0-7.0): ");
+    if (nota < 1.0f || nota > 7.0) {
+        cout << "La nota esta fuera del rango permitido" << endl;
+        return;
+    }
+
+    alumno->agregarNota(idCurso, nota);
+    cout << "Nota agregada correctamente" << endl;
+}
+
+void manejoNotas() {
+    int opcion;
+    cout << "MANEJO DE NOTAS" << endl;
+    do {
+        cout << "0. Volver al menu Principal" << endl;
+        cout << "1. Asignar nota a un alumno en un curso especifico" << endl;
+        opcion = leerInt("Ingrese una opcion: ");
+
+        switch (opcion) {
+            case 1:
+                asignarNotas();
+                break;
+        }
+    }
+    while (opcion != 0);
+}
+
 int main(){
     int opcion;
     do{
@@ -247,7 +314,7 @@ int main(){
             manejoInscripciones();
             break;
         case 4:
-
+            manejoNotas();
             break;
         case 5:
 
