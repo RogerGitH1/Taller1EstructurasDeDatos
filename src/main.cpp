@@ -17,6 +17,18 @@ string leerString(string texto){
     return ingresado;
 }
 
+string leerLinea(const string& prompt) {
+    cout << prompt;
+    string linea;
+    getline(cin >> ws,linea);
+    return linea;
+}
+
+string tolower(string s) {
+    for (char& c : s) c=static_cast<char>(tolower(static_cast<unsigned char>(c)));
+    return s;
+}
+
 int leerInt(string texto) {
     cout << texto;
     int ingresado;
@@ -47,7 +59,7 @@ void crearAlumno(){
     string nombre = leerString("Ingrese Nombre: ");
     string apellido = leerString("Ingrese Apellido: ");
     string carrera = leerString("Ingrese Carrera: ");
-    string fechaIngreso = leerString("Ingrese Fecha de ingreso (dia/mes/año): ");
+    string fechaIngreso = leerString("Ingrese Fecha de ingreso (dia/mes/ano): ");
 
     if (!alumnos.idExiste(id)) {
         Alumno alumno(id,nombre,apellido,carrera,fechaIngreso);
@@ -58,7 +70,7 @@ void crearAlumno(){
     cout << "El id: " << id << " ya existe " << endl;
 }
 
-void buscarAlumno() {
+void buscarAlumnoId() {
     std::cout << "BUSCAR ALUMNO" << std::endl;
     int id = leerInt("Ingrese Id: ");
     Alumno* alumno = alumnos.getObjetoPtr(id);
@@ -67,6 +79,27 @@ void buscarAlumno() {
     } else {
         std::cout << "Id: " << id << " no encontrado " << std::endl;
     }
+}
+
+void buscarAlumnoNombre() {
+    std::cout << "BUSCAR ALUMNO" << std::endl;
+    string nombre = leerString("Ingrese el NOMBRE EXACTO del alumno a buscar: ");
+    bool alguno = false;
+    int total = 0;
+
+    alumnos.forEach([&](const Alumno& alum) {
+        if (tolower(alum.getNombre()) == nombre) {
+            if (!alguno) {
+               cout << "Concidencias de alumnos con mismo nombre: \n";
+                cout << "-----------------------------\n";
+            }
+            alguno = true;
+            ++total;
+            cout << total <<".)" << " Id:"<< alum.getId() << " Nombre:" << alum.getNombre() << " Apellido:"
+            << alum.getApellido() << " Carrera:"<< alum.getCarrera()<< " Fecha Ingreso:" <<alum.getFechaIngreso()<< endl;
+        }
+    cout << endl;
+    });
 }
 
 void eliminarAlumno() {
@@ -86,8 +119,9 @@ void manejoAlumnos(){
     do{
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Crear Alumno" << endl;
-        cout << "2. Buscar un alumno por ID o nombre y listar su informacion" << endl;
-        cout << "3. Eliminar un alumno del sistema utilizando su ID" << endl;
+        cout << "2. Buscar un alumno por ID y listar su informacion" << endl;
+        cout << "3. Buscar un alumno/s por Nombre y listar su informacion" << endl;
+        cout << "4. Eliminar un alumno del sistema utilizando su ID" << endl;
         cout << "Ingresa una opcion: ";
         cin >> opcion;
         cout << endl;
@@ -97,9 +131,12 @@ void manejoAlumnos(){
             crearAlumno();
             break;
         case 2:
-            buscarAlumno();
+            buscarAlumnoId();
             break;
         case 3:
+            buscarAlumnoNombre();
+            break;
+        case 4:
             eliminarAlumno();
             break;
         }
@@ -124,7 +161,7 @@ void crearCurso(){
     cout << "El id: " << id << " ya existe" << endl;
 }
 
-void buscarCurso() {
+void buscarCursoId() {
     std::cout << "BUSCAR CURSO" << std::endl;
     int id = leerInt("Ingrese Id del curso: ");
     Curso* curso = cursos.getObjetoPtr(id);
@@ -133,6 +170,27 @@ void buscarCurso() {
     } else {
         std::cout << "Id: " << id << " no encontrado" << std::endl;
     }
+}
+
+void buscarCursoNombre() {
+    std::cout << "BUSCAR CURSO" << std::endl;
+    string nombre = leerString("Ingrese el NOMBRE EXACTO del curso a buscar: ");
+    bool alguno = false;
+    int total = 0;
+
+    cursos.forEach([&](const Curso& curso) {
+        if (tolower(curso.getNombre()) == nombre) {
+            if (!alguno) {
+                cout << "Concidencias de cursos con mismo nombre: \n";
+                cout << "-----------------------------\n";
+            }
+            alguno = true;
+            ++total;
+            cout << total <<".)" << " Id:"<< curso.getId() << " Nombre:" << curso.getNombre() <<
+                " Carrera:"<< curso.getCarrera()<< " Profesor:" <<curso.getProfesor()<< " Maximo Estudiantes:"<< curso.getMaxEstudiantes()<< endl;
+        }
+    });
+    cout << endl;
 }
 
 void eliminarCurso() {
@@ -152,8 +210,9 @@ void manejoCursos(){
     do{
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Crear Curso" << endl;
-        cout << "2. Buscar un curso por ID o nombre y listar su informacion" << endl;
-        cout << "3. Eliminar un curso del sistema utilizando su ID" << endl;
+        cout << "2. Buscar un curso por ID y listar su informacion" << endl;
+        cout << "3. Buscar un curso/s por Nombre y listar su informacion" << endl;
+        cout << "4. Eliminar un curso del sistema utilizando su ID" << endl;
         opcion = leerInt("Ingrese una opcion: ");
         cout << endl;
 
@@ -162,9 +221,12 @@ void manejoCursos(){
                 crearCurso();
                 break;
             case 2:
-                buscarCurso();
+                buscarCursoId();
                 break;
             case 3:
+                buscarCursoNombre();
+                break;
+            case 4:
                 eliminarCurso();
                 break;
         }
