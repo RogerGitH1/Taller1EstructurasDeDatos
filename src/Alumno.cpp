@@ -61,3 +61,16 @@ void Alumno::imprimirNotasCurso(int cursoId) const {
     if (!alguna) std::cout << "(sin notas)";
     std::cout << std::endl;
 }
+
+void Alumno::eliminarNotasCurso(int cursoId) {
+    notas.eraseIf([&](const Nota& n) {
+        return n.getCursoId() == cursoId;
+    });
+}
+
+void Alumno::eliminarCurso(int cursoId) {
+    cursos.eraseIf([&](const Curso& c) {
+        return c.getId() == cursoId;
+    });
+    eliminarNotasCurso(cursoId);
+}

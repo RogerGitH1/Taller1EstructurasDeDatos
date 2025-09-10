@@ -233,6 +233,14 @@ void manejoCursos(){
     } while (opcion != 0);
 }
 
+int contarInscritos(int idCurso) {
+    int contador = 0;
+    alumnos.forEach([&](const Alumno& alum) {
+        if (alum.estaInscritoEn(idCurso)) contador++;
+    });
+    return contador;
+}
+
 void inscribirAlumnoCurso() {
     cout << "INSCRIBIR UN ALUMNO EN UN CURSO " << endl;
 
@@ -257,8 +265,21 @@ void inscribirAlumnoCurso() {
         return;
     }
 
+    if (alumno->estaInscritoEn(idCurso)) {
+        cout << "El alumno ya esta inscrito en el curso\n" << endl;
+        return;
+    }
+
     if (curso->getCarrera() != alumno->getCarrera()) {
         cout << "Curso no válido para el alumno (carrera distinta)" << endl;
+        return;
+    }
+
+    int capacidad = curso->getMaxEstudiantes();
+    int inscritos = contarInscritos(idCurso);
+
+    if (capacidad<=inscritos) {
+        cout << "Curso con capacidad llena\n";
         return;
     }
 
@@ -269,7 +290,36 @@ void inscribirAlumnoCurso() {
 void eliminarAlumnoCurso() {
     cout << "ELIMINAR ALUMNO EN UN CURSO " << endl;
 
+    if (alumnos.isEmpty() || cursos.isEmpty()) {
+        cout << "Debe haber minimo un curso y un alumno agregados" << endl;
+        return;
+    }
+    const int idAlumno = leerInt("Ingrese Id del alumno que quiere eliminar del curso: ");
+    Alumno* alumno = alumnos.getObjetoPtr(idAlumno);
+    if (!alumno) {
+        cout << "El id: " << idAlumno << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno->mostrarInformacion();
+
+    const int idCurso = leerInt("Ingrese id del curso al que desea eliminar el alumno: ");
+    Curso* curso = cursos.getObjetoPtr(idCurso);
+    if (!curso) {
+        cout << "Curso con id " << idCurso << " no encontrado" << endl;
+        return;
+    }
+
+    if (!alumno->estaInscritoEn(idCurso)) {
+        cout << "El alumno no esta inscrito en el curso "<< endl;
+        return;
+    }
+
+    alumno->eliminarCurso(idCurso);
+    cout << "Alumno eliminado del curso correctamente\n" << endl;
 }
+
 
 void manejoInscripciones() {
     int opcion;

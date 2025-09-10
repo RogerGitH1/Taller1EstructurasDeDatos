@@ -31,6 +31,8 @@ public:
     void agregarNota(int cursoId, float nota);
     float promedioEnCurso(int cursoId) const;
     void imprimirNotasCurso(int cursoId) const;
+    void eliminarCurso(int cursoId);
+    void eliminarNotasCurso(int cursoId);
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_ALUMNO_H
