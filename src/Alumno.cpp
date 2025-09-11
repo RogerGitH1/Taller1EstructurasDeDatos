@@ -84,5 +84,20 @@ bool Alumno::tieneCursosInscritos() const {
     return !cursos.isEmpty();
 }
 
+bool Alumno::tieneNotas() const {
+    return !notas.isEmpty();
+}
 
+float Alumno::promedioGeneral() const {
+    float sumaPromedio = 0.0f;
+    int contadorCursos = 0;
 
+    cursos.forEach([&](const Curso& c) {
+        float prom = promedioEnCurso(c.getId());
+        if (prom > 0.0f) {
+            sumaPromedio += prom;
+            contadorCursos++;
+        }
+    });
+    return sumaPromedio/contadorCursos;
+}

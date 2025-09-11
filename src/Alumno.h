@@ -37,6 +37,8 @@ public:
     //Metodos para reportes
     void imprimirCursosInscritos() const;
     bool tieneCursosInscritos() const;
+    bool tieneNotas() const;
+    float promedioGeneral() const;
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_ALUMNO_H

@@ -402,10 +402,10 @@ void obtenerAlumnosCarrera() {
     cout << "OBTENER TODOS LOS ALUMNOS DE UNA CARRERA" << endl;
 
     if (alumnos.isEmpty()) {
-        cout << "No hay ningun alumno añadido" << endl;
+        cout << "No hay ningun alumno inscrito" << endl;
         return;
     }
-    string carrera = leerString("Ingrese la carrera a buscar");
+    string carrera = leerString("Ingrese la carrera a buscar: ");
 
     if (!alumnos.carreraExiste(carrera)) {
         cout << "Carrera no encontrada en ningun alumno" << endl;
@@ -442,8 +442,8 @@ void obtenerTodosLosCursosAlumno() {
 }
 
 void calcularPromedioAlumnoCurso() {
-    if (!alumnos.isEmpty()) {
-        cout << "No hay ningun alumno añadido" << endl;
+    if (alumnos.isEmpty()) {
+        cout << "No hay ningun alumno inscrito" << endl;
         return;
     }
 
@@ -466,7 +466,41 @@ void calcularPromedioAlumnoCurso() {
         return;
     }
 
+    float prom = alumno->promedioEnCurso(idCurso);
+    cout << "El promedio del Alumno "<< alumno->getNombre()<< " en el curso: "<< curso->getNombre()<<" es de: " << prom << "\n";
+    cout << endl;
+}
 
+void calcularPromedioGeneral() {
+    if (alumnos.isEmpty()) {
+        cout << "No hay ningun alumno registrado" << endl;
+        return;
+    }
+
+    int idAlumno = leerInt("Ingrese id del alumno: ");
+    Alumno* alumno = alumnos.getObjetoPtr(idAlumno);
+
+    if (alumno == nullptr) {
+        cout << "Id: " << idAlumno << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno -> mostrarInformacion();
+
+    if (!alumno->tieneCursosInscritos()) {
+        cout << "El alumno no esta inscrito en ningun curso"<< endl;
+        return;
+    }
+
+    if (!alumno->tieneNotas()) {
+        cout << "El alumno no tiene notas registradas"<< endl;
+        return;
+    }
+
+    float promGeneral = alumno->promedioGeneral();
+    cout << "El promedio general del Alumno "<< alumno->getNombre()<< " es de: " << promGeneral << "\n";
+    cout << endl;
 }
 
 void consultasReportes() {
@@ -475,9 +509,9 @@ void consultasReportes() {
     do {
         cout << "0. Volver al menu Principal" << endl;
         cout << "1. Obtener todos los alumnos de una carrera" << endl;
-        cout << "2. Obtener todos los cursos en los que un alumno está inscrito" << endl;
+        cout << "2. Obtener todos los cursos en los que un alumno esta inscrito" << endl;
         cout << "3. Calcular el promedio de notas de un alumno en un curso" << endl;
-        cout << "4. Calcular el promedio general de un alumno (según sus promedios finales)" << endl;
+        cout << "4. Calcular el promedio general de un alumno (segun sus promedios finales)" << endl;
         opcion = leerInt("Ingrese una opcion: ");
 
         switch (opcion) {
@@ -489,6 +523,9 @@ void consultasReportes() {
                 break;
             case 3:
                 calcularPromedioAlumnoCurso();
+                break;
+            case 4:
+                calcularPromedioGeneral();
                 break;
         }
 
