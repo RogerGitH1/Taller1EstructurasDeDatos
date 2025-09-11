@@ -40,6 +40,7 @@ public:
     //Metodos para reportes
     bool carreraExiste(const std::string carreraBuscada) const;
     void obtenerAlumnosCarrera(const std::string carreraBuscada) const;
+    void imprimirLista() const;
 };
 
 template<typename T>
@@ -254,6 +255,18 @@ void LinkedList<T>::obtenerAlumnosCarrera(std::string carreraBuscada) const {
         }
         actual = actual->getSiguiente();
     }
+}
+
+template<typename T>
+void LinkedList<T>::imprimirLista() const {
+    const Nodo<T>* actual = cabeza;
+
+    while (actual != nullptr) {
+        const T* objeto = actual->getObjeto();
+        objeto -> mostrarInformacion();
+        actual = actual->getSiguiente();
+    }
+
 }
 
 #endif //TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
