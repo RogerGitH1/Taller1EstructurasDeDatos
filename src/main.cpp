@@ -441,6 +441,34 @@ void obtenerTodosLosCursosAlumno() {
     alumno -> imprimirCursosInscritos();
 }
 
+void calcularPromedioAlumnoCurso() {
+    if (!alumnos.isEmpty()) {
+        cout << "No hay ningun alumno añadido" << endl;
+        return;
+    }
+
+    int idAlumno = leerInt("Ingrese id del alumno: ");
+    Alumno* alumno = alumnos.getObjetoPtr(idAlumno);
+
+    if (alumno == nullptr) {
+        cout << "Id: " << idAlumno << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno -> mostrarInformacion();
+
+    int idCurso = leerInt("Ingrese id del curso: ");
+    Curso* curso = cursos.getObjetoPtr(idCurso);
+
+    if (curso == nullptr) {
+        cout << "Id: " << idCurso << " no encontrado" << endl;
+        return;
+    }
+
+
+}
+
 void consultasReportes() {
     int opcion;
     cout << "CONSULTAS Y REPORTES" << endl;
@@ -459,11 +487,15 @@ void consultasReportes() {
             case 2:
                 obtenerTodosLosCursosAlumno();
                 break;
+            case 3:
+                calcularPromedioAlumnoCurso();
+                break;
         }
 
     }
     while (opcion != 0);
 }
+
 int main(){
     int opcion;
     do{
