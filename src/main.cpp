@@ -24,7 +24,8 @@ string leerLinea(const string& prompt) {
     return linea;
 }
 
-string tolower(string s) {
+// Convierte un string a minúsculas
+string aMinusculas(string s) {
     for (char& c : s) c=static_cast<char>(tolower(static_cast<unsigned char>(c)));
     return s;
 }
@@ -53,6 +54,7 @@ float leerFloat(string texto1) {
     return ingresado1;
 }
 
+// Crea un alumno a partir de datos ingresados y lo agrega a la lista de alumnos
 void crearAlumno(){
     cout << "CREAR ALUMNO" << endl;
     int id = leerInt("Ingrese Id: ");
@@ -70,6 +72,7 @@ void crearAlumno(){
     cout << "El id: " << id << " ya existe " << endl;
 }
 
+// Busca un alumno por id y muestra su información
 void buscarAlumnoId() {
     std::cout << "BUSCAR ALUMNO" << std::endl;
     int id = leerInt("Ingrese Id: ");
@@ -81,14 +84,15 @@ void buscarAlumnoId() {
     }
 }
 
+// Busca alumnos por nombre y mostrar todas las coincidencias
 void buscarAlumnoNombre() {
     std::cout << "BUSCAR ALUMNO" << std::endl;
     string nombre = leerString("Ingrese el NOMBRE EXACTO del alumno a buscar: ");
     bool alguno = false;
     int total = 0;
 
-    alumnos.forEach([&](const Alumno& alum) {
-        if (tolower(alum.getNombre()) == nombre) {
+    alumnos.recorrer([&](const Alumno& alum) {
+        if (aMinusculas(alum.getNombre()) == nombre) {
             if (!alguno) {
                cout << "Concidencias de alumnos con mismo nombre: \n";
                 cout << "-----------------------------\n";
@@ -102,6 +106,7 @@ void buscarAlumnoNombre() {
     });
 }
 
+// Elimina un alumno por id
 void eliminarAlumno() {
     cout << "ELIMINAR ALUMNO" << endl;
     int id = leerInt("Ingrese Id: ");
@@ -113,6 +118,7 @@ void eliminarAlumno() {
     cout << "El id: " << id << " no existe " << endl;
 }
 
+// Menú de operaciones de alumnos
 void manejoAlumnos(){
     int opcion;
     cout << "MANEJO DE ALUMNOS" << endl;
@@ -144,6 +150,7 @@ void manejoAlumnos(){
 
 }
 
+// Crea un curso con los datos ingresados y lo agrega a la lista
 void crearCurso(){
     cout << "CREAR CURSO" << endl;
     int id = leerInt("Ingrese Id del curso: ");
@@ -161,6 +168,7 @@ void crearCurso(){
     cout << "El id: " << id << " ya existe" << endl;
 }
 
+// Busca un curso por id y muestra su información
 void buscarCursoId() {
     cout << "BUSCAR CURSO" << endl;
     int id = leerInt("Ingrese Id del curso: ");
@@ -172,14 +180,15 @@ void buscarCursoId() {
     }
 }
 
+// Busca cursos por nombre y mostrar todas las coincidencias
 void buscarCursoNombre() {
     std::cout << "BUSCAR CURSO" << std::endl;
     string nombre = leerString("Ingrese el NOMBRE EXACTO del curso a buscar: ");
     bool alguno = false;
     int total = 0;
 
-    cursos.forEach([&](const Curso& curso) {
-        if (tolower(curso.getNombre()) == nombre) {
+    cursos.recorrer([&](const Curso& curso) {
+        if (aMinusculas(curso.getNombre()) == nombre) {
             if (!alguno) {
                 cout << "Concidencias de cursos con mismo nombre: \n";
                 cout << "-----------------------------\n";
@@ -193,6 +202,7 @@ void buscarCursoNombre() {
     cout << endl;
 }
 
+// Elimina un curso por id
 void eliminarCurso() {
     cout << "ELIMINAR CURSO" << endl;
     int id = leerInt("Ingrese Id del curso: ");
@@ -204,6 +214,7 @@ void eliminarCurso() {
     cout << "El id: " << id << " no existe" << endl;
 }
 
+// Menú de operaciones de cursos
 void manejoCursos(){
     int opcion;
     cout << "MANEJO DE CURSOS" << endl;
@@ -233,14 +244,16 @@ void manejoCursos(){
     } while (opcion != 0);
 }
 
+// Cuenta cuántos alumnos están inscritos en un curso
 int contarInscritos(int idCurso) {
     int contador = 0;
-    alumnos.forEach([&](const Alumno& alum) {
+    alumnos.recorrer([&](const Alumno& alum) {
         if (alum.estaInscritoEn(idCurso)) contador++;
     });
     return contador;
 }
 
+// Inscribe un alumno en un curso
 void inscribirAlumnoCurso() {
     cout << "INSCRIBIR UN ALUMNO EN UN CURSO" << endl;
 
@@ -287,6 +300,7 @@ void inscribirAlumnoCurso() {
     cout << "Alumno inscrito en el curso correctamente" << endl;
 }
 
+// Elimina a un alumno de un curso y sus notas del curso
 void eliminarAlumnoCurso() {
     cout << "ELIMINAR ALUMNO EN UN CURSO " << endl;
 
@@ -320,6 +334,7 @@ void eliminarAlumnoCurso() {
     cout << "Alumno eliminado del curso correctamente\n" << endl;
 }
 
+// Menú de operaciones de inscripciones
 void manejoInscripciones() {
     int opcion;
     cout << "MANEJO DE INSCRIPCIONES" << endl;
@@ -337,12 +352,12 @@ void manejoInscripciones() {
                 eliminarAlumnoCurso();
                 break;
         }
-
     }
     while (opcion != 0);
 
 }
 
+// Asigna una nota a un alumno de un curso
 void asignarNotas() {
     cout << "ASIGNAR NOTA A UN ALUMNO EN UN CURSO" << endl;
 
@@ -381,6 +396,7 @@ void asignarNotas() {
     cout << "Nota agregada correctamente" << endl;
 }
 
+// Menú de operaciones de notas
 void manejoNotas() {
     int opcion;
     cout << "MANEJO DE NOTAS" << endl;
@@ -398,6 +414,7 @@ void manejoNotas() {
     while (opcion != 0);
 }
 
+// Lista todos los alumnos de una carrera dada
 void obtenerAlumnosCarrera() {
     cout << "OBTENER TODOS LOS ALUMNOS DE UNA CARRERA" << endl;
 
@@ -416,6 +433,7 @@ void obtenerAlumnosCarrera() {
     alumnos.obtenerAlumnosCarrera(carrera);
 }
 
+// Muestra todos los cursos de un alumno
 void obtenerTodosLosCursosAlumno() {
     cout << "Obtener todos los cursos en los que un alumno está inscrito" << endl;
     if (alumnos.isEmpty()) {
@@ -441,6 +459,7 @@ void obtenerTodosLosCursosAlumno() {
     alumno -> imprimirCursosInscritos();
 }
 
+// Calcula y muestra el promedio del alumno en un curso
 void calcularPromedioAlumnoCurso() {
     if (alumnos.isEmpty()) {
         cout << "No hay ningun alumno inscrito" << endl;
@@ -471,6 +490,7 @@ void calcularPromedioAlumnoCurso() {
     cout << endl;
 }
 
+// Calcula y muestra el promedio general del alumno
 void calcularPromedioGeneral() {
     if (alumnos.isEmpty()) {
         cout << "No hay ningun alumno registrado" << endl;
@@ -503,6 +523,7 @@ void calcularPromedioGeneral() {
     cout << endl;
 }
 
+// Menú de consultas y reportes
 void consultasReportes() {
     int opcion;
     cout << "CONSULTAS Y REPORTES" << endl;

@@ -8,13 +8,13 @@ struct Nota {
     float valor = 1.0f;
 
     Nota() = default;
-
-    explicit Nota(float v) : valor(v) {}
-
+    Nota(float v) : valor(v) {}
     Nota(int curId, float val) : cursoId(curId), valor(val) {}
 
     float getValor() const { return valor; }
     int getCursoId() const { return cursoId; }
+
+    // Imprime el valor de la nota"
     void imprimir() const { std::cout << cursoId << ": " << valor << '\n'; }
 };
 #endif //TALLERES_ESTRUCTURAS_DE_DATOS21_NOTA_H

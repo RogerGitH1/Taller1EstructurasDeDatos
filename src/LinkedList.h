@@ -13,32 +13,53 @@ public:
     ~LinkedList();
 
     bool isEmpty() const;
+
+    // Agrega un nuevo nodo al final con una copia del objeto
     void agregarNodo(const T& objeto);
+
+    // Indica si existe un elemento con ese id
     bool idExiste(int idBuscado) const;
+
+    // Devuelve una COPIA del objeto por id
     T getObjeto(int idBuscado) const;
+
+    // Devuelve una COPIA del objeto por id
     T* getObjetoPtr(int idBuscado);
     const T* getObjetoPtr(int idBuscado) const;
+
+    // Muestra información del objeto si coincide por id o por nombre
     void mostrarInformacion(int idBuscado, const std::string& nombreBuscado) const;
+
+    // Elimina el Nodo que tenga el Id
     void eliminarNodo(int idBuscado);
 
-    //Nuevas funciones que agregare(miguel) para poder usar en lista de Notas
+    // Recorre todos los elementos de la lista aplicando una funcion a cada uno
     template<typename Funcion>
-    void forEach(Funcion funcion);
+    void recorrer(Funcion funcion);
+
+    // Recorre todos los elementos de la lista aplicando una funcion a cada uno / const
     template<typename Funcion>
-    void forEach(Funcion funcion) const;
+    void recorrer(Funcion funcion) const;
 
+    // Busca el primer elemento que cumpla el predicado y devuelve puntero
     template<typename FunBool>
-    T* findIf(FunBool funbool);
+    T* buscarSi(FunBool funbool);
+
+    // Busca el primer elemento que cumpla el predicado y devuelve puntero/const
     template<typename FunBool>
-    const T* findIf(FunBool funbool) const;
+    const T* buscarSi(FunBool funbool) const;
 
+    // Elimina el primer elemento que cumpla la condicion
     template<typename FunBool>
-    bool eraseIf(FunBool funbool);
+    bool eliminarSi(FunBool funbool);
 
-    void clear();
+    // Vacía por completo la lista liberando memoria
+    void limpiar();
 
-    //Metodos para reportes
+    // Indica si existe algún elemento con la carrera indicada
     bool carreraExiste(const std::string carreraBuscada) const;
+
+    // Imprime todos los alumnos de una carrera
     void obtenerAlumnosCarrera(const std::string carreraBuscada) const;
     void imprimirLista() const;
 };
@@ -156,7 +177,7 @@ void LinkedList<T>::eliminarNodo(int idBuscado) {
 
 template<typename T>
 template<typename Funcion>
-void LinkedList<T>::forEach(Funcion funcion) {
+void LinkedList<T>::recorrer(Funcion funcion) {
     Nodo<T>* actual = cabeza;
     while (actual) {
         T* obj = actual->getObjeto();
@@ -169,7 +190,7 @@ void LinkedList<T>::forEach(Funcion funcion) {
 
 template<typename T>
 template<typename Funcion>
-void LinkedList<T>::forEach(Funcion funcion) const{
+void LinkedList<T>::recorrer(Funcion funcion) const{
     Nodo<T>* actual = cabeza;
     while (actual) {
         const T* obj = actual->getObjeto();
@@ -180,7 +201,7 @@ void LinkedList<T>::forEach(Funcion funcion) const{
 
 template<typename T>
 template<typename FunBool>
-T* LinkedList<T>::findIf(FunBool funbool) {
+T* LinkedList<T>::buscarSi(FunBool funbool) {
     Nodo<T>* actual = cabeza;
     while (actual) {
         T* obj = actual->getObjeto();
@@ -192,7 +213,7 @@ T* LinkedList<T>::findIf(FunBool funbool) {
 
 template<typename T>
 template<typename FunBool>
-const T* LinkedList<T>::findIf(FunBool funbool) const{
+const T* LinkedList<T>::buscarSi(FunBool funbool) const{
     const Nodo<T>* actual = cabeza;
     while (actual) {
         const T* obj = actual->getObjeto();
@@ -204,7 +225,7 @@ const T* LinkedList<T>::findIf(FunBool funbool) const{
 
 template<typename T>
 template<typename FunBool>
-bool LinkedList<T>::eraseIf(FunBool funbool) {
+bool LinkedList<T>::eliminarSi(FunBool funbool) {
     Nodo<T>* ant = nullptr;
     Nodo<T>* actual = cabeza;
     while (actual) {
@@ -222,7 +243,7 @@ bool LinkedList<T>::eraseIf(FunBool funbool) {
 }
 
 template<typename T>
-void LinkedList<T>::clear() {
+void LinkedList<T>::limpiar() {
     while (cabeza) {
         Nodo<T>* siguiente = cabeza->getSiguiente();
         delete cabeza;
@@ -266,7 +287,6 @@ void LinkedList<T>::imprimirLista() const {
         objeto -> mostrarInformacion();
         actual = actual->getSiguiente();
     }
-
 }
 
 #endif //TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H

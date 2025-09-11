@@ -12,6 +12,7 @@ Alumno::Alumno(int id, std::string nombre, std::string apellido, std::string car
     this -> fechaIngreso = fechaIngreso;
 }
 
+
 void Alumno::mostrarInformacion() const{
     std::cout << "Id: " << id << std::endl;
     std::cout << "Nombre: " << nombre << std::endl;
@@ -48,14 +49,14 @@ void Alumno::agregarNota(int cursoId, float nota) {
 
 float Alumno::promedioEnCurso(int cursoId) const {
     float suma =0.0f; int contador = 0;
-    notas.forEach([&](const Nota& n){
+    notas.recorrer([&](const Nota& n){
         if (n.cursoId == cursoId) { suma += n.valor; ++contador; } });
     return contador? suma/contador: 0.0f;
 }
 
 void Alumno::imprimirNotasCurso(int cursoId) const {
     bool alguna =false;
-    notas.forEach([&](const Nota& n){
+    notas.recorrer([&](const Nota& n){
         if (n.getCursoId() == cursoId) {n.imprimir(); alguna=true;} });
     if (!alguna) std::cout << "(sin notas)";
     std::cout << std::endl;
@@ -63,13 +64,13 @@ void Alumno::imprimirNotasCurso(int cursoId) const {
 }
 
 void Alumno::eliminarNotasCurso(int cursoId) {
-    notas.eraseIf([&](const Nota& n) {
+    notas.eliminarSi([&](const Nota& n) {
         return n.getCursoId() == cursoId;
     });
 }
 
 void Alumno::eliminarCurso(int cursoId) {
-    cursos.eraseIf([&](const Curso& c) {
+    cursos.eliminarSi([&](const Curso& c) {
         return c.getId() == cursoId;
     });
     eliminarNotasCurso(cursoId);
@@ -92,7 +93,7 @@ float Alumno::promedioGeneral() const {
     float sumaPromedio = 0.0f;
     int contadorCursos = 0;
 
-    cursos.forEach([&](const Curso& c) {
+    cursos.recorrer([&](const Curso& c) {
         float prom = promedioEnCurso(c.getId());
         if (prom > 0.0f) {
             sumaPromedio += prom;
