@@ -162,7 +162,7 @@ void crearCurso(){
 }
 
 void buscarCursoId() {
-    std::cout << "BUSCAR CURSO" << std::endl;
+    cout << "BUSCAR CURSO" << endl;
     int id = leerInt("Ingrese Id del curso: ");
     Curso* curso = cursos.getObjetoPtr(id);
     if (curso) {
@@ -242,7 +242,7 @@ int contarInscritos(int idCurso) {
 }
 
 void inscribirAlumnoCurso() {
-    cout << "INSCRIBIR UN ALUMNO EN UN CURSO " << endl;
+    cout << "INSCRIBIR UN ALUMNO EN UN CURSO" << endl;
 
     if (alumnos.isEmpty() || cursos.isEmpty()) {
         cout << "Debe haber minimo un curso y un alumno agregados" << endl;
@@ -320,7 +320,6 @@ void eliminarAlumnoCurso() {
     cout << "Alumno eliminado del curso correctamente\n" << endl;
 }
 
-
 void manejoInscripciones() {
     int opcion;
     cout << "MANEJO DE INSCRIPCIONES" << endl;
@@ -345,7 +344,7 @@ void manejoInscripciones() {
 }
 
 void asignarNotas() {
-    cout << "ASIGNAR NOTA A UN ALUMNO EN UN CURSO " << endl;
+    cout << "ASIGNAR NOTA A UN ALUMNO EN UN CURSO" << endl;
 
     if (alumnos.isEmpty() || cursos.isEmpty()) {
         cout << "Debe haber minimo un curso y un alumno agregados" << endl;
@@ -399,6 +398,46 @@ void manejoNotas() {
     while (opcion != 0);
 }
 
+void obtenerAlumnosCarrera() {
+    cout << "OBTENER TODOS LOS ALUMNOS DE UNA CARRERA" << endl;
+
+    if (alumnos.isEmpty()) {
+        cout << "No hay ningun alumno añadido" << endl;
+        return;
+    }
+    string carrera = leerString("Ingrese la carrera a buscar");
+
+    if (!alumnos.carreraExiste(carrera)) {
+        cout << "Carrera no encontrada en ningun alumno" << endl;
+        return;
+    }
+
+    cout << "Alumnos pertenecientes a la carrera " << carrera << endl;
+    alumnos.obtenerAlumnosCarrera(carrera);
+}
+
+void consultasReportes() {
+    int opcion;
+    cout << "CONSULTAS Y REPORTES" << endl;
+    do {
+        cout << "0. Volver al menu Principal" << endl;
+        cout << "1. Obtener todos los alumnos de una carrera" << endl;
+        cout << "2. Obtener todos los cursos en los que un alumno está inscrito" << endl;
+        cout << "3. Calcular el promedio de notas de un alumno en un curso" << endl;
+        cout << "4. Calcular el promedio general de un alumno (según sus promedios finales)" << endl;
+        opcion = leerInt("Ingrese una opcion: ");
+
+        switch (opcion) {
+            case 1:
+                obtenerAlumnosCarrera();
+                break;
+            case 2:
+                break;
+        }
+
+    }
+    while (opcion != 0);
+}
 int main(){
     int opcion;
     do{
@@ -427,7 +466,7 @@ int main(){
             manejoNotas();
             break;
         case 5:
-
+            consultasReportes();
             break;
         }
     } while (opcion != 0);

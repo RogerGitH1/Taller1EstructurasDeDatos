@@ -13,14 +13,11 @@ public:
     ~LinkedList();
 
     bool isEmpty() const;
-
     void agregarNodo(const T& objeto);
-
     bool idExiste(int idBuscado) const;
     T getObjeto(int idBuscado) const;
     T* getObjetoPtr(int idBuscado);
     const T* getObjetoPtr(int idBuscado) const;
-
     void mostrarInformacion(int idBuscado, const std::string& nombreBuscado) const;
     void eliminarNodo(int idBuscado);
 
@@ -39,6 +36,10 @@ public:
     bool eraseIf(FunBool funbool);
 
     void clear();
+
+    //Metodos para reportes
+    bool carreraExiste(const std::string carreraBuscada) const;
+    void obtenerAlumnosCarrera(const std::string carreraBuscada) const;
 };
 
 template<typename T>
@@ -69,7 +70,9 @@ void LinkedList<T>::agregarNodo(const T& objeto) {
         return;
     }
     Nodo<T>* actual = cabeza;
-    while (actual->getSiguiente()) actual = actual->getSiguiente();
+    while (actual->getSiguiente()) {
+        actual = actual->getSiguiente();
+    }
     actual->setSiguiente(nuevo);
 }
 
@@ -156,7 +159,9 @@ void LinkedList<T>::forEach(Funcion funcion) {
     Nodo<T>* actual = cabeza;
     while (actual) {
         T* obj = actual->getObjeto();
-        if (obj) funcion(*obj);
+        if (obj) {
+            funcion(*obj);
+        }
         actual = actual->getSiguiente();
     }
 }
@@ -224,4 +229,31 @@ void LinkedList<T>::clear() {
     }
 }
 
-#endif // TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
+//Metodos reportes
+template<typename T>
+bool LinkedList<T>::carreraExiste(std::string carreraBuscada) const {
+    Nodo<T>* actual = cabeza;
+    while (actual != nullptr) {
+        const T* objeto = actual->getObjeto();
+        if (objeto && objeto->getCarrera() == carreraBuscada) {
+            return true;
+        }
+        actual = actual->getSiguiente();
+    }
+    return false;
+
+}
+
+template<typename T>
+void LinkedList<T>::obtenerAlumnosCarrera(std::string carreraBuscada) const {
+    const Nodo<T>* actual = cabeza;
+    while (actual != nullptr) {
+        const T* objeto = actual->getObjeto();
+        if (objeto != nullptr && objeto->getCarrera() == carreraBuscada) {
+            objeto->mostrarInformacion();
+        }
+        actual = actual->getSiguiente();
+    }
+}
+
+#endif //TALLER1ESTRUCTURASDEDATOS_LINKEDLIST_H
