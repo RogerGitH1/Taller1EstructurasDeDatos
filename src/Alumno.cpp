@@ -10,7 +10,6 @@ Alumno::Alumno(int id, std::string nombre, std::string apellido, std::string car
     this -> apellido = apellido;
     this -> carrera = carrera;
     this -> fechaIngreso = fechaIngreso;
-
 }
 
 void Alumno::mostrarInformacion() const{
@@ -60,6 +59,7 @@ void Alumno::imprimirNotasCurso(int cursoId) const {
         if (n.getCursoId() == cursoId) {n.imprimir(); alguna=true;} });
     if (!alguna) std::cout << "(sin notas)";
     std::cout << std::endl;
+
 }
 
 void Alumno::eliminarNotasCurso(int cursoId) {
@@ -74,3 +74,15 @@ void Alumno::eliminarCurso(int cursoId) {
     });
     eliminarNotasCurso(cursoId);
 }
+
+//Metodos para reportes
+void Alumno::imprimirCursosInscritos() const{
+    cursos.imprimirLista();
+}
+
+bool Alumno::tieneCursosInscritos() const {
+    return !cursos.isEmpty();
+}
+
+
+

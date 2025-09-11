@@ -416,6 +416,31 @@ void obtenerAlumnosCarrera() {
     alumnos.obtenerAlumnosCarrera(carrera);
 }
 
+void obtenerTodosLosCursosAlumno() {
+    cout << "Obtener todos los cursos en los que un alumno está inscrito" << endl;
+    if (alumnos.isEmpty()) {
+        cout << "No hay ningun alumno añadido" << endl;
+        return;
+    }
+
+    int id = leerInt("Ingrese id del alumno");
+    Alumno* alumno = alumnos.getObjetoPtr(id);
+    if (alumno == nullptr) {
+        cout << "El id: " << id << " no encontrado" << endl;
+        return;
+    }
+
+    cout << "Alumno encontrado" << endl;
+    alumno -> mostrarInformacion();
+
+    if (!alumno -> tieneCursosInscritos()) {
+        cout << "El alumno no esta inscrito a ningun curso" << endl;
+        return;
+    }
+
+    alumno -> imprimirCursosInscritos();
+}
+
 void consultasReportes() {
     int opcion;
     cout << "CONSULTAS Y REPORTES" << endl;
@@ -432,6 +457,7 @@ void consultasReportes() {
                 obtenerAlumnosCarrera();
                 break;
             case 2:
+                obtenerTodosLosCursosAlumno();
                 break;
         }
 

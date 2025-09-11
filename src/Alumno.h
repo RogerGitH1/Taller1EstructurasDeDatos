@@ -33,6 +33,10 @@ public:
     void imprimirNotasCurso(int cursoId) const;
     void eliminarCurso(int cursoId);
     void eliminarNotasCurso(int cursoId);
+
+    //Metodos para reportes
+    void imprimirCursosInscritos() const;
+    bool tieneCursosInscritos() const;
 };
 
 #endif //TALLER1ESTRUCTURASDEDATOS_ALUMNO_H
